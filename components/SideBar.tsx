@@ -13,7 +13,7 @@ import HiveLogo from '../public/assets/HiveLogo.jpg'
 
 const SideBar = () => {
   return (
-    <nav className='hidden sm:flex flex-col sticky top-0 p-3 h-screen xl:ml-20'>
+    <nav className='hidden sm:flex flex-col sticky top-0 p-3 h-screen xl:ml-20 mr-10'>
     <div className='h-full relative'>
       <div className='py-3'>
         <Image src={HiveLogo} alt='logo' width={58} height={48} className='rounded-3xl'/>
