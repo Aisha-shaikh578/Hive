@@ -1,4 +1,5 @@
 import React from 'react'
+import SignUpModal from './modals/SignUpModal'
 
 export default function SignUpPrompt() {
   return (
@@ -16,9 +17,7 @@ export default function SignUpPrompt() {
       <button className='w-[88px] h-[40px] text-sm border-2 border-gray-100 rounded-full text-white font-bold hover:bg-white hover:bg-opacity-25 transition'>
         Log In
       </button>
-      <button className='w-[88px] h-[40px] text-sm border-2 border-gray-100 rounded-full bg-white font-bold hover:bg-opacity-45 transition'>
-        Sign Up
-      </button>
+      <SignUpModal />
      </div>
     </div>
   )
