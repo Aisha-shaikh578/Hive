@@ -23,7 +23,6 @@ const SideBar = () => {
         <ul>
           <SideBarLinks Icon={HomeIcon} text='Home'/>
           <SideBarLinks Icon={HashtagIcon} text='Explore'/>
-          <SideBarLinks Icon={HomeIcon} text='Home'/>
           <SideBarLinks Icon={BellIcon} text='Notifications'/>
           <SideBarLinks Icon={InboxIcon} text='Messages'/>
           <SideBarLinks Icon={BookmarkIcon} text='Save'/>
