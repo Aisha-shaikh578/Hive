@@ -4,7 +4,7 @@ import React from 'react'
 
 const PostInput = () => {
   return (
-    <>
+    <div className='border-b border-gray-100'>
     <div className='flex space-x-5 p-3'>
       <Image alt='logo' src={'/assets/HiveLogo.jpg'} width={60} height={60} className='rounded-3xl h-9 w-12'/>
 
@@ -30,7 +30,7 @@ const PostInput = () => {
           Bumble
         </button>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -5,9 +5,10 @@ import { RootState } from '@reduxjs/toolkit/query'
 import { AppDispatch } from '@/redux/store'
 import { closeSignModal, openSignUpModal } from '@/redux/slices/modalSlice'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/firebase'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { signInUser } from '@/redux/slices/userSlice'
 
 export default function SignUpModal() {
   const [email, setEmail] = useState('');
@@ -26,6 +27,22 @@ export default function SignUpModal() {
     password
   )
   }
+
+  useEffect(() => {
+   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    if(!currentUser) return;
+
+    dispatch(signInUser(
+      {
+        name: '',
+        username: currentUser.email!.split('@')[0],
+        email: currentUser.email,
+        uid: currentUser.uid,
+      }
+    ))
+   });
+   return unsubscribe;
+  }, [])
   
   return (
     <div>
