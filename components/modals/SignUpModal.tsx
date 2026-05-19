@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@reduxjs/toolkit/query'
 import { AppDispatch } from '@/redux/store'
 import { closeSignModal, openSignUpModal } from '@/redux/slices/modalSlice'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function SignUpModal() {
   // const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function SignUpModal() {
   )
 
   const dispatch: AppDispatch = useDispatch();
-  console.log(isOpen)
+  
   return (
     <div>
       <button
@@ -35,7 +36,35 @@ export default function SignUpModal() {
       onClose={() => dispatch(closeSignModal())}
       className='flex justify-center items-center'
       >
-      <div className='w-[200px] h-[400px] bg-white'></div>
+      <div className='w-full h-full sm:w-[600px] sm:h-fit sm:rounded-xl bg-white'>
+       <XMarkIcon 
+       className='w-7 mt-5 ms-5 cursor-pointer'
+       onClick={() => dispatch(closeSignModal())}/>
+        <form className='pt-10 pb-20 px-4 sm:px-20'>
+           <h1 className='text-3xl font-bold mb-10'>Create your account</h1>
+
+           <div className='w-full space-y-5 mb-10'>
+            <input
+             type="text"
+             placeholder='Name'
+             className='w-full h-[54x] border border-gray-200 outline-none ps-3 rounded-[4px] py-2 focus:border-[#f4af01] transition'
+            />
+            <input
+             type="email"
+             placeholder='Email'
+             className='w-full h-[54x] border border-gray-200 outline-none ps-3 rounded-[4px] py-2 focus:border-[#f4af01] transition'
+            />
+            <input
+             type="password"
+             placeholder='Password'
+             className='w-full h-[54x] border border-gray-200 outline-none ps-3 rounded-[4px] py-2 focus:border-[#f4af01] transition'
+            />
+           </div>
+           <button className='bg-[#f4af01] text-white h-[48px] rounded-full shadow-md mb-5 w-full cursor-pointer'>Sign Up</button>
+           <span className='mb-5 text-sm text-center block'>Or</span>
+           <button className='bg-[#f4af01] text-white h-[48px] rounded-full shadow-md w-full cursor-pointer'>Log In as Guest</button>
+        </form>
+      </div>
       </Modal>
     </div>
   )
