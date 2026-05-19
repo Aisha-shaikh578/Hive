@@ -5,23 +5,27 @@ import { RootState } from '@reduxjs/toolkit/query'
 import { AppDispatch } from '@/redux/store'
 import { closeSignModal, openSignUpModal } from '@/redux/slices/modalSlice'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase'
+import { useState } from 'react'
 
 export default function SignUpModal() {
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const handleClose = () => {
-  //   setIsOpen(false)
-  // }
-
-  // const handleOpen = () => {
-  //   setIsOpen(true);
-  // }
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const isOpen = useSelector(
     (state: RootState) =>  state.modals.signUpModalOpen
   )
 
   const dispatch: AppDispatch = useDispatch();
+
+  async function handleSignUp() {
+  const userCredentials = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  )
+  }
   
   return (
     <div>
@@ -40,7 +44,7 @@ export default function SignUpModal() {
        <XMarkIcon 
        className='w-7 mt-5 ms-5 cursor-pointer'
        onClick={() => dispatch(closeSignModal())}/>
-        <form className='pt-10 pb-20 px-4 sm:px-20'>
+        <div className='pt-10 pb-20 px-4 sm:px-20'>
            <h1 className='text-3xl font-bold mb-10'>Create your account</h1>
 
            <div className='w-full space-y-5 mb-10'>
@@ -53,17 +57,29 @@ export default function SignUpModal() {
              type="email"
              placeholder='Email'
              className='w-full h-[54x] border border-gray-200 outline-none ps-3 rounded-[4px] py-2 focus:border-[#f4af01] transition'
+             onChange={(e) => setEmail(e.target.value)}
+             value={email}
             />
             <input
              type="password"
              placeholder='Password'
              className='w-full h-[54x] border border-gray-200 outline-none ps-3 rounded-[4px] py-2 focus:border-[#f4af01] transition'
+             onChange={(e) => setPassword(e.target.value)}
+             value={password}
             />
            </div>
-           <button className='bg-[#f4af01] text-white h-[48px] rounded-full shadow-md mb-5 w-full cursor-pointer'>Sign Up</button>
+           <button 
+            className='bg-[#f4af01] text-white h-[48px] rounded-full shadow-md mb-5 w-full cursor-pointer'
+            onClick={() => handleSignUp()}>
+             Sign Up
+           </button>
            <span className='mb-5 text-sm text-center block'>Or</span>
-           <button className='bg-[#f4af01] text-white h-[48px] rounded-full shadow-md w-full cursor-pointer'>Log In as Guest</button>
-        </form>
+           <button 
+           className='bg-[#f4af01] text-white h-[48px] rounded-full shadow-md w-full cursor-pointer'
+           >
+            Log In as Guest
+           </button>
+        </div>
       </div>
       </Modal>
     </div>
