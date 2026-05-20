@@ -4,7 +4,7 @@ import React from 'react'
 
 const Widgets = () => {
   return (
-    <div className='p-3 hidden lg:flex flex-col space-y-3 w-[400px]'>
+    <div className='p-10 hidden lg:flex flex-col space-y-3 w-[400px]'>
       <div className='flex bg-[#eff3f4] text-[#899590] h-[44px] items-center space-x-3 rounded-full pl-5'>
         <MagnifyingGlassIcon className='w-[20px] h-20px]'/>
         <input type="text" placeholder='Search' className='bg-transparent outline-none'/>

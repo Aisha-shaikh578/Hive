@@ -14,7 +14,7 @@ import HiveLogo from '../public/assets/HiveLogo.jpg'
 const SideBar = () => {
   return (
     <nav className='hidden sm:flex flex-col sticky top-0 p-3 h-screen xl:ml-20 mr-10'>
-    <div className='h-full relative'>
+    <div className='h-full relative flex flex-col items-center'>
       <div className='py-3'>
         <Image src={HiveLogo} alt='logo' width={58} height={48} className='rounded-3xl'/>
       </div>
@@ -31,8 +31,20 @@ const SideBar = () => {
         </ul>
       </div>
 
-      <div className='absolute bottom-0'>
-        <UserIcon className='h-10 text-yellow-500'/>
+      <div 
+      className='absolute bottom-3 cursor-pointer flex space-x-2 hover:bg-gray-500 hover:bg-opacity-10 transition xl:p-3 xl:pe-6 rounded-full'>
+        <Image 
+        src={'/assets/user.png'}
+        alt='profile picture'
+        height={34}
+        width={34}
+        className='h-8 w-8'
+        />
+
+        <div className='hidden xl:flex flex-col text-sm'>
+          <span className='font-bold'>Guest</span>
+          <span className='text-gray-500'>@test123</span>
+        </div>
       </div>
     </div>
     </nav>
