@@ -5,12 +5,13 @@ import { RootState } from '@reduxjs/toolkit/query'
 import { AppDispatch } from '@/redux/store'
 import { closeSignModal, openSignUpModal } from '@/redux/slices/modalSlice'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth'
 import { auth } from '@/firebase'
 import { useEffect, useState } from 'react'
 import { signInUser } from '@/redux/slices/userSlice'
 
 export default function SignUpModal() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,7 +26,18 @@ export default function SignUpModal() {
     auth,
     email,
     password
-  )
+  );
+
+  await updateProfile(userCredentials.user, {
+    displayName: name
+  });
+
+  dispatch(signInUser({
+    name: userCredentials.user.displayName,
+    username: userCredentials.user.email!.split('@')[0],
+    email: userCredentials.user.email,
+    uid: userCredentials.user.uid,
+  }));
   }
 
   useEffect(() => {
@@ -34,7 +46,7 @@ export default function SignUpModal() {
 
     dispatch(signInUser(
       {
-        name: '',
+        name: currentUser.displayName,
         username: currentUser.email!.split('@')[0],
         email: currentUser.email,
         uid: currentUser.uid,
@@ -69,6 +81,8 @@ export default function SignUpModal() {
              type="text"
              placeholder='Name'
              className='w-full h-[54x] border border-gray-200 outline-none ps-3 rounded-[4px] py-2 focus:border-[#f4af01] transition'
+             onChange={(e) => setName(e.target.value)}
+             value={name}
             />
             <input
              type="email"

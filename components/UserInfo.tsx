@@ -4,11 +4,13 @@ import React from 'react'
 import Image from 'next/image'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/firebase'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signOutUser } from '@/redux/slices/userSlice'
+import { RootState } from '@reduxjs/toolkit/query'
 
 const UserInfo = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user)
 
   async function handleSignOut() {
     await signOut(auth);
@@ -27,8 +29,8 @@ const UserInfo = () => {
       />
 
       <div className='hidden xl:flex flex-col text-sm'>
-        <span className='font-bold'>Guest</span>
-        <span className='text-gray-500'>@test123</span>
+        <span className='font-bold'>{user.name}</span>
+        <span className='text-gray-500'>@{user.username}</span>
       </div>
    </div>
   )
