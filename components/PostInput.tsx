@@ -1,8 +1,30 @@
+'use client'
+
+import { db } from '@/firebase'
 import { CalendarIcon, ChartBarIcon, FaceSmileIcon, MapPinIcon, PhotoIcon } from '@heroicons/react/24/outline'
+import { RootState } from '@reduxjs/toolkit/query'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const PostInput = () => {
+  const [text, setText] = useState('');
+  const user = useSelector((state: RootState) => state.user)
+
+  async function sendPost() {
+    await addDoc(collection(db, "posts"), {
+      text: text,
+      name: user.name,
+      username: user.username,
+      timestamp: serverTimestamp(),
+      likes: [],
+      comments: []
+    });
+
+    setText('');
+  }
+
   return (
     <div className='border-b border-gray-100'>
     <div className='flex space-x-5 p-3'>
@@ -11,6 +33,8 @@ const PostInput = () => {
       <div className='w-full'>
         <textarea className='resize-none w-full outline-none min-h-[50px] text-xl'
         placeholder="What's happening?"
+        onChange={(e) => setText(e.target.value)}
+        value={text}
         />
       </div>
     </div>
@@ -25,8 +49,9 @@ const PostInput = () => {
         </div>
 
         <button className='
-        bg-[#f4af01] text-white w-[80px] h-[36px] text-sm cursor-pointer rounded-full
-        '>
+        bg-[#f4af01] text-white w-[80px] h-[36px] text-sm cursor-pointer rounded-full disabled:bg-opacity-60'
+        disabled={!text}
+        onClick={() => sendPost()}>
           Bumble
         </button>
       </div>
