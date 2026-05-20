@@ -9,6 +9,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } fro
 import { auth } from '@/firebase'
 import { useEffect, useState } from 'react'
 import { signInUser } from '@/redux/slices/userSlice'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default function SignUpModal() {
   const [name, setName] = useState('');
@@ -38,6 +39,10 @@ export default function SignUpModal() {
     email: userCredentials.user.email,
     uid: userCredentials.user.uid,
   }));
+  }
+
+  async function handleGuestLogIn() {
+      await signInWithEmailAndPassword(auth, 'guest@gmail.com', '12345678')
   }
 
   useEffect(() => {
@@ -107,6 +112,7 @@ export default function SignUpModal() {
            <span className='mb-5 text-sm text-center block'>Or</span>
            <button 
            className='bg-[#f4af01] text-white h-[48px] rounded-full shadow-md w-full cursor-pointer'
+           onClick={() => handleGuestLogIn()}
            >
             Log In as Guest
            </button>
