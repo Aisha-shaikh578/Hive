@@ -4,7 +4,7 @@ import React from 'react'
 import SignUpModal from './modals/SignUpModal'
 import LogInModal from './modals/LogInModal'
 import { useSelector } from 'react-redux'
-import { RootState } from '@reduxjs/toolkit/query'
+import { RootState } from '@/redux/store'
 
 export default function SignUpPrompt() {
   const name = useSelector(
