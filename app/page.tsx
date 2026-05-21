@@ -1,3 +1,4 @@
+import CommentModal from "@/components/modals/CommentModal";
 import PostFeed from "@/components/PostFeed";
 import SideBar from "@/components/SideBar";
 import SignUpPrompt from "@/components/SignUpPrompt";
@@ -14,6 +15,7 @@ export default function Home() {
     <Widgets />
     </div>
 
+     <CommentModal />
      <SignUpPrompt />
     </>
   );

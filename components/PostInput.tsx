@@ -8,7 +8,11 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-const PostInput = () => {
+interface PostInputProps{
+  insideModal?: boolean
+}
+
+const PostInput = ({insideModal}: PostInputProps) => {
   const [text, setText] = useState('');
   const user = useSelector((state: RootState) => state.user)
 
@@ -28,11 +32,11 @@ const PostInput = () => {
   return (
     <div className='border-b border-gray-100'>
     <div className='flex space-x-5 p-3'>
-      <Image alt='logo' src={'/assets/HiveLogo.jpg'} width={60} height={60} className='rounded-3xl h-9 w-12'/>
+      <Image alt='logo' src={insideModal? '/assets/user.png' : '/assets/HiveLogo.jpg'} width={60} height={60} className='rounded-3xl h-9 w-12'/>
 
       <div className='w-full'>
         <textarea className='resize-none w-full outline-none min-h-[50px] text-xl'
-        placeholder="What's happening?"
+        placeholder={insideModal ? 'Send your reply' : "What's happening?"}
         onChange={(e) => setText(e.target.value)}
         value={text}
         />
