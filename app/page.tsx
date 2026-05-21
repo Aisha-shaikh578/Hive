@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
     <div
-     className="text-[#0f1419] min-h-screen max-w-[1400px mx-auto flex 2xl:justify-center"
+     className="text-[#0f1419] min-h-screen max-w-[1400px] mx-auto flex 2xl:justify-center"
     >
     <SideBar />
     <PostFeed />
